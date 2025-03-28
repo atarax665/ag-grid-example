@@ -8,7 +8,8 @@ import {
   DateFilterModule,
   ColDef,
   GridReadyEvent,
-  CellStyle
+  CellStyle,
+  ValidationModule
 } from 'ag-grid-community';
 import 'ag-grid-community/styles/ag-grid.css';
 import 'ag-grid-community/styles/ag-theme-material.css';
@@ -22,7 +23,8 @@ ModuleRegistry.registerModules([
   ClientSideRowModelModule,
   TextFilterModule,
   NumberFilterModule,
-  DateFilterModule
+  DateFilterModule,
+  ValidationModule,
 ]);
 
 interface CasesGridProps {
@@ -174,7 +176,17 @@ const CasesGrid: React.FC<CasesGridProps> = ({ cases }) => {
           placeholder="Search"
           variant="outlined"
           size="small"
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => gridApi?.setQuickFilter(e.target.value)}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            if (gridApi) {
+              const searchValue = e.target.value.toLowerCase();
+              gridApi.setFilterModel({
+                caseName: {
+                  type: 'contains',
+                  filter: searchValue
+                }              
+            });
+            }
+          }}
           sx={{ width: 300 }}
         />
         <Button
