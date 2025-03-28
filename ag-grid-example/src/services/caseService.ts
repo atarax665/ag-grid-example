@@ -27,6 +27,15 @@ const dummyCases: Case[] = [
     due: null,
     totalFiles: 3,
     releasableFiles: '3 of 3'
+  },
+  {
+    id: '4',
+    caseName: 'Case 4',
+    status: 'Archived',
+    created: new Date('2024-01-25'),
+    due: new Date('2024-03-25'),
+    totalFiles: 5,
+    releasableFiles: '2 of 5'
   }
 ];
 

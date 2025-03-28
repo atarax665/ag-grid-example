@@ -1,35 +1,41 @@
-import { AppBar, Box, Container, CssBaseline, ThemeProvider, Toolbar, Typography, createTheme } from '@mui/material'
-import CasesGrid from './components/CasesGrid'
-import { getCases } from './services/caseService'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Box, CssBaseline } from '@mui/material';
+import Navbar from './components/Navbar';
+import CasesGrid from './components/CasesGrid';
+import { getCases } from './services/caseService';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#3f51b5',
-    },
-  },
-});
+// Placeholder components for other routes
+const Dashboard = () => (
+  <Box sx={{ p: 3 }}>
+    <h1>Dashboard</h1>
+    <p>Welcome to the dashboard!</p>
+  </Box>
+);
+
+const Analytics = () => (
+  <Box sx={{ p: 3 }}>
+    <h1>Analytics</h1>
+    <p>Analytics page content will go here.</p>
+  </Box>
+);
 
 function App() {
-  const cases = getCases();
-
   return (
-    <ThemeProvider theme={theme}>
+    <Router>
       <CssBaseline />
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              Case Management System
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Container maxWidth="xl" sx={{ mt: 4 }}>
-          <CasesGrid cases={cases} />
-        </Container>
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Navbar />
+        <Box component="main" sx={{ flexGrow: 1 }}>
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/cases" element={<CasesGrid cases={getCases()} />} />
+            <Route path="/analytics" element={<Analytics />} />
+          </Routes>
+        </Box>
       </Box>
-    </ThemeProvider>
-  )
+    </Router>
+  );
 }
 
-export default App
+export default App;

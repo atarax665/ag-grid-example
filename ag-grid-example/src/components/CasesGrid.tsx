@@ -86,10 +86,12 @@ const CasesGrid: React.FC<CasesGridProps> = ({ cases }) => {
             borderRadius: '12px',
             backgroundColor: params.value === 'In Progress' ? '#e3f2fd' :
                            params.value === 'Completed' ? '#e8f5e9' :
-                           params.value === 'Pending Review' ? '#fff3e0' : '#f5f5f5',
+                           params.value === 'Pending Review' ? '#fff3e0' :
+                           params.value === 'Archived' ? '#f5f5f5' : '#f5f5f5',
             color: params.value === 'In Progress' ? '#1976d2' :
                    params.value === 'Completed' ? '#2e7d32' :
-                   params.value === 'Pending Review' ? '#ed6c02' : '#616161',
+                   params.value === 'Pending Review' ? '#ed6c02':
+                   params.value === 'Archived' ? '#616161' : '#616161',
             width: 'fit-content',
             fontSize: '13px',
             fontWeight: 500
@@ -126,7 +128,7 @@ const CasesGrid: React.FC<CasesGridProps> = ({ cases }) => {
     },
     {
       field: 'releasableFiles',
-      headerName: 'Releasable Files',
+      headerName: 'Released Files',
       filter: 'agTextColumnFilter',
       cellStyle: { justifyContent: 'center' } as CellStyle
     },
@@ -164,7 +166,10 @@ const CasesGrid: React.FC<CasesGridProps> = ({ cases }) => {
         </Typography>
         <Button
           variant="contained"
-          color="primary"
+          style={{
+            backgroundColor: 'rgb(26, 35, 126)', 
+            color: 'white',
+          }}
           startIcon={<AddIcon />}
         >
           Create New
